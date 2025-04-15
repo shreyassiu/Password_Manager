@@ -36,10 +36,7 @@ const login = () => {
         },
         body: JSON.stringify(loginInfo)
       })
-      // console.log(response);
       const data = await response.json()
-      console.log(data);
-      console.log(data.message);
       const { success, message, jwtToken, email ,error } = data;
       if (success) {
 

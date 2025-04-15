@@ -36,10 +36,7 @@ const signup = () => {
                 },
                 body: JSON.stringify(signupInfo)
             })
-            // console.log(response);
             const data = await response.json()
-            console.log(data);
-            console.log(data.message);
             const { success, message, error } = data;
             if (success) {
                 handleSuccess("Signup successful")

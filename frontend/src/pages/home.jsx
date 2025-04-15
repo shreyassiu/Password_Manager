@@ -30,7 +30,6 @@ const home = () => {
     });
     let passwords = await req.json();
     setPasswordArray(passwords.map(password => ({ ...password, id: password._id })));
-    console.log(passwords);
   };
   const checkTokenValidity = () => {
     const token = localStorage.getItem('Token');
@@ -41,7 +40,6 @@ const home = () => {
       const currentTime = Date.now() / 1000; // Current time in seconds
       return decoded.exp > currentTime; // Check if token is still valid
     } catch (error) {
-      console.error('Invalid token:', error);
       return false;
     }
   };
@@ -120,7 +118,6 @@ const home = () => {
           },
           body: JSON.stringify(newPassword),
         });
-        console.log(newPassword)
         setPasswordArray([...passwordArray, newPassword]);
       }
 
