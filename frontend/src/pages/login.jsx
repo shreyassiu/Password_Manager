@@ -28,7 +28,7 @@ const login = () => {
       return handleError("Please fill all the fields")
     }
     try {
-      const url = "http://localhost:8080/auth/login";
+      const url = "https://password-manager-vuar.onrender.com/auth/login"
       const response = await fetch(url, {
         method: "POST",
         headers: {

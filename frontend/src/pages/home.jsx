@@ -21,7 +21,8 @@ const home = () => {
   const getPasswords = async () => {
     const token = localStorage.getItem('Token');
     const email = localStorage.getItem('loggedInUser'); // Retrieve email from localStorage
-    const req = await fetch('http://localhost:8080/products', {
+    const url = "https://password-manager-vuar.onrender.com/products";
+    const req = await fetch(url, {
       headers: {
         Authorization: token,
         Email: email, // Send email in headers
@@ -77,6 +78,7 @@ const home = () => {
       ref.current.src = "icons/hide.png"
   }
   const savePassword = async () => {
+    const url = "https://password-manager-vuar.onrender.com/products"
     if(!localStorage.getItem("Token")){
       toast('Please login to save passwords', {
         position: "top-right",
@@ -92,10 +94,9 @@ const home = () => {
     
     if (form.site !== "" && form.username !== "" && form.password !== "") {
       const existingPassword = passwordArray.find((item) => item.id === form.id);
-
       if (existingPassword) {
         // Update the existing password in the database
-        await fetch('http://localhost:8080/products', {
+        await fetch(url, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -111,7 +112,7 @@ const home = () => {
       } else {
         const email = localStorage.getItem('loggedInUser');
         const newPassword = { ...form,email ,id: uuidv4() };
-        await fetch('http://localhost:8080/products', {
+        await fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -147,9 +148,10 @@ const home = () => {
   };
   const deletePassword = async (id) => {
     let c = confirm("Do you wish to delete this password?");
+    const url = "https://password-manager-vuar.onrender.com/products"
     if (c) {
       setPasswordArray(passwordArray.filter((item) => item.id !== id));
-      await fetch('http://localhost:8080/products', {
+      await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
