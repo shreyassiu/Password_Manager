@@ -14,6 +14,7 @@ const login = () => {
     email: "",
     password: ""
   })
+  const [isLoading, setisLoading] = useState(false)
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +28,7 @@ const login = () => {
     if (!email || !password) {
       return handleError("Please fill all the fields")
     }
+    setisLoading(true);
     try {
       const url = "https://password-manager-vuar.onrender.com/auth/login"
       const response = await fetch(url, {
@@ -38,6 +40,7 @@ const login = () => {
       })
       const data = await response.json()
       const { success, message, jwtToken, email ,error } = data;
+      setisLoading(false);
       if (success) {
 
         handleSuccess("Login successful")
@@ -52,7 +55,6 @@ const login = () => {
       } else if (!success) {
         handleError(message)
       }
-
     } catch (error) {
       handleError(error);
     }
@@ -96,8 +98,9 @@ const login = () => {
             />
           </div>
           <div className='flex flex-col items-center gap-2'>
-            <button type='submit' className='bg-slate-700 text-white font-serif px-2 py-1 rounded-md hover:bg-slate-600 transition-all duration-200 ease-in-out w-[50%]'>
-              Login
+            <button type='submit' className='bg-slate-700 text-white flex justify-center items-center font-serif px-2 py-1 rounded-md hover:bg-slate-600 transition-all duration-200 ease-in-out w-[50%]'>
+              {!isLoading && "Login"}
+              {isLoading && <svg className="animate-spin h-5 w-5 mr-3 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg>}
             </button>
             <div>Don't have an account? <Link to='/signup' className='text-purple-900 underline'>Sign Up</Link></div>
           </div>

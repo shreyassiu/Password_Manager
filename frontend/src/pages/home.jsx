@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode'
 const home = () => {
   const navigate = useNavigate()
   const [loggedInUser, setLoggedInUser] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
   const [isAuth, setisAuth] = useState(false)
   const ref = useRef()
   const passRef = useRef()
@@ -27,9 +28,11 @@ const home = () => {
         Authorization: token,
         Email: email, // Send email in headers
       },
-    });
+    })
     let passwords = await req.json();
     setPasswordArray(passwords.map(password => ({ ...password, id: password._id })));
+    setIsLoading(false)
+    console.log(isLoading)
   };
   const checkTokenValidity = () => {
     const token = localStorage.getItem('Token');
@@ -50,11 +53,16 @@ const home = () => {
         alert('Session expired. Please log in again.');
         handleLogout(); // Log the user out
       } else {
+        setisAuth(true)
         const user = localStorage.getItem('loggedInUser');
         setLoggedInUser(user);
         setForm({ ...form, email: user });
         getPasswords();
       }
+    }
+    else{
+      setisAuth(false)
+      setIsLoading(false)
     }
   }, []);
 
@@ -269,8 +277,12 @@ const home = () => {
             <h2 className="font-semibold text-2xl py-4 text-center md:text-left">
               Your Passwords
             </h2>
-            {passwordArray.length === 0 && (
+            {isLoading && <div className="text-center">Loading....</div>}
+            {(!isLoading && isAuth && passwordArray.length === 0) && (
               <div className="text-center">No passwords to show</div>
+            )}
+            {!isLoading && !isAuth && (
+              <div className="text-center">Login to see passwords</div>
             )}
             {passwordArray.length !== 0 && (
               <div className="overflow-x-auto">
