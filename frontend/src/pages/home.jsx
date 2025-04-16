@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import Navbar from '../components/Navbar'
 import RefreshHandler from '../RefreshHandler'
 import { jwtDecode } from 'jwt-decode'
+const url = import.meta.env.VITE_API_PRODUCTS_URL
 
 
 const home = () => {
@@ -22,7 +23,6 @@ const home = () => {
   const getPasswords = async () => {
     const token = localStorage.getItem('Token');
     const email = localStorage.getItem('loggedInUser'); // Retrieve email from localStorage
-    const url = "https://password-manager-vuar.onrender.com/products";
     const req = await fetch(url, {
       headers: {
         Authorization: token,
@@ -84,7 +84,6 @@ const home = () => {
       ref.current.src = "icons/hide.png"
   }
   const savePassword = async () => {
-    const url = "https://password-manager-vuar.onrender.com/products"
     if(!localStorage.getItem("Token")){
       toast('Please login to save passwords', {
         position: "top-right",
@@ -153,7 +152,6 @@ const home = () => {
   };
   const deletePassword = async (id) => {
     let c = confirm("Do you wish to delete this password?");
-    const url = "https://password-manager-vuar.onrender.com/products"
     if (c) {
       setPasswordArray(passwordArray.filter((item) => item.id !== id));
       await fetch(url, {

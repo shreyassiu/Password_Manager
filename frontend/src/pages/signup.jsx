@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import { handleSuccess, handleError } from '../utils'
 import 'react-toastify/ReactToastify.css'
 import Navbar from '../components/Navbar'
+const url = import.meta.env.VITE_API_SIGNUP_URL
 
 
 
@@ -30,7 +31,6 @@ const signup = () => {
         }
         setisLoading(true);
         try {
-            const url = "https://password-manager-vuar.onrender.com/auth/signup"
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
