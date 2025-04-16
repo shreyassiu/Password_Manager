@@ -37,7 +37,7 @@ const home = () => {
   const checkTokenValidity = () => {
     const token = localStorage.getItem('Token');
     if (!token) return false;
-  
+
     try {
       const decoded = jwtDecode(token);
       const currentTime = Date.now() / 1000; // Current time in seconds
@@ -60,7 +60,7 @@ const home = () => {
         getPasswords();
       }
     }
-    else{
+    else {
       setisAuth(false)
       setIsLoading(false)
     }
@@ -83,7 +83,7 @@ const home = () => {
       ref.current.src = "/icons/hide.png"
   }
   const savePassword = async () => {
-    if(!localStorage.getItem("Token")){
+    if (!localStorage.getItem("Token")) {
       toast('Please login to save passwords', {
         position: "top-right",
         autoClose: 5000,
@@ -95,7 +95,7 @@ const home = () => {
       });
       return;
     }
-    
+
     if (form.site !== "" && form.username !== "" && form.password !== "") {
       const existingPassword = passwordArray.find((item) => item.id === form.id);
       if (existingPassword) {
@@ -115,7 +115,7 @@ const home = () => {
         );
       } else {
         const email = localStorage.getItem('loggedInUser');
-        const newPassword = { ...form,email ,id: uuidv4() };
+        const newPassword = { ...form, email, id: uuidv4() };
         await fetch(url, {
           method: 'POST',
           headers: {
@@ -300,34 +300,49 @@ const home = () => {
                             <a href={item.site} target="_blank">
                               {item.site}
                             </a>
-                            <lord-icon
-                              className="cursor-pointer"
-                              onClick={() => copyText(item.site)}
-                              src="https://cdn.lordicon.com/lyrrgrsl.json"
-                              trigger="hover"
-                            ></lord-icon>
+                            <div className="relative group cursor-pointer flex items-center justify-center">
+                              <lord-icon
+                                className="cursor-pointer"
+                                onClick={() => copyText(item.site)}
+                                src="https://cdn.lordicon.com/lyrrgrsl.json"
+                                trigger="hover"
+                              ></lord-icon>
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded">
+                                Copy
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td className="text-center min-w-20 py-2 text-sm md:text-base">
                           <div className="flex items-center justify-center gap-1">
                             {item.username}
-                            <lord-icon
-                              className="cursor-pointer"
-                              onClick={() => copyText(item.username)}
-                              src="https://cdn.lordicon.com/lyrrgrsl.json"
-                              trigger="hover"
-                            ></lord-icon>
+                            <div className="relative group cursor-pointer flex items-center justify-center">
+                              <lord-icon
+                                className="cursor-pointer"
+                                onClick={() => copyText(item.username)}
+                                src="https://cdn.lordicon.com/lyrrgrsl.json"
+                                trigger="hover"
+                              ></lord-icon>
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded">
+                                Copy
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td className="text-center min-w-20 py-2 text-sm md:text-base">
-                          <div className="flex items-center justify-center gap-1">
-                            {item.password}
-                            <lord-icon
-                              className="cursor-pointer"
-                              onClick={() => copyText(item.password)}
-                              src="https://cdn.lordicon.com/lyrrgrsl.json"
-                              trigger="hover"
-                            ></lord-icon>
+                          <div  className="flex items-center justify-center gap-1">
+                            ••••••••
+                            <div className="relative group cursor-pointer flex items-center justify-center">
+                              <lord-icon
+                                className="cursor-pointer"
+                                onClick={() => copyText(item.password)}
+                                src="https://cdn.lordicon.com/lyrrgrsl.json"
+                                trigger="hover"
+                              ></lord-icon>
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded">
+                                Copy
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td className="text-center min-w-20 py-2 text-sm md:text-base">
