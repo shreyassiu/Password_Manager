@@ -279,7 +279,7 @@ const home = () => {
               <div className="text-center">No passwords to show</div>
             )}
             {!isLoading && !isAuth && (
-              <div className="text-center">Login to see passwords</div>
+              <div className="text-center text-xl">Login to see passwords</div>
             )}
             {passwordArray.length !== 0 && (
               <div className="overflow-x-auto">
