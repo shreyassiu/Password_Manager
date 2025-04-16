@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, { use, useState, useRef } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { handleSuccess, handleError } from '../utils'
@@ -15,6 +15,8 @@ const signup = () => {
         email: "",
         password: ""
     })
+    const passRef = useRef()
+    const ref = useRef()
     const [isLoading, setisLoading] = useState(false)
     const navigate = useNavigate();
     const handleChange = (e) => {
@@ -22,6 +24,13 @@ const signup = () => {
         const copysignupInfo = { ...signupInfo }
         copysignupInfo[name] = value;
         setsignupInfo(copysignupInfo)
+    }
+    const showPassword = () => {
+        passRef.current.type = passRef.current.type === "password" ? "text" : "password";
+        if (ref.current.src.includes("/icons/hide.png"))
+            ref.current.src = "/icons/eye.png"
+        else
+            ref.current.src = "/icons/hide.png"
     }
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -96,21 +105,34 @@ const signup = () => {
                                 value={signupInfo.email}
                             />
                         </div>
-                        <div className='flex gap-1 flex-col'>
+                        <div className='flex gap-1 flex-col relative'>
                             <label htmlFor='password'>Password</label>
                             <input
                                 onChange={handleChange}
+                                ref={passRef}
                                 type="password"
                                 placeholder='Enter your password'
                                 name='password'
                                 className='p-1 rounded-md placeholder:italic'
                                 value={signupInfo.password}
                             />
+                            <span
+                                onClick={showPassword}
+                                className="text-black absolute right-2 top-8 cursor-pointer"
+                            >
+                                <img
+                                    ref={ref}
+                                    className="p-1"
+                                    width={32}
+                                    src="icons/eye.png"
+                                    alt=""
+                                />
+                            </span>
                         </div>
                         <div className='flex flex-col items-center gap-2'>
                             <button disabled={isLoading} type='submit' className='bg-slate-700 text-white flex justify-center items-center px-2 py-1 rounded-md hover:bg-slate-600 transition-all duration-200 ease-in-out w-[50%]'>
-                            {!isLoading && "Sign up"}
-                            {isLoading && <svg className="animate-spin h-5 w-5 mr-3 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg>}
+                                {!isLoading && "Sign up"}
+                                {isLoading && <svg className="animate-spin h-5 w-5 mr-3 border-b-2 border-white rounded-full" viewBox="0 0 24 24"></svg>}
                             </button>
                             <div>Already have an account? <Link to='/login' className='text-purple-900 underline'>Login</Link></div>
                         </div>

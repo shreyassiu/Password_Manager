@@ -13,7 +13,7 @@ const Navbar = (params) => {
             </div>
             <div className='flex items-center gap-12'>
                 <a href='https://github.com/shreyassiu/Password_Manager' target='blank' className='text-white flex items-center gap-2'>
-                    <img width={28} className='invert' src="src/assets/github.png" alt="" />
+                    <img width={25} className='invert' src="/icons/github.png" alt="" />
                     <div className='font-semibold'>Github</div>
                 </a>
                 {params.loggedin && <button onClick={() => params.handleLogout()} className='text-white flex font-semibold items-center gap-2'> Log Out </button>}

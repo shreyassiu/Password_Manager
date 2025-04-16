@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, { use, useState,useRef } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { handleSuccess, handleError } from '../utils'
@@ -14,6 +14,8 @@ const login = () => {
     email: "",
     password: ""
   })
+  const passRef = useRef()
+  const ref = useRef()
   const [isLoading, setisLoading] = useState(false)
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -21,6 +23,13 @@ const login = () => {
     const copyloginInfo = { ...loginInfo }
     copyloginInfo[name] = value;
     setloginInfo(copyloginInfo)
+  }
+  const showPassword = () => {
+    passRef.current.type = passRef.current.type === "password" ? "text" : "password";
+    if (ref.current.src.includes("/icons/hide.png"))
+      ref.current.src = "/icons/eye.png"
+    else
+      ref.current.src = "/icons/hide.png"
   }
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -85,16 +94,29 @@ const login = () => {
               autoFocus
             />
           </div>
-          <div className='flex gap-1 flex-col'>
+          <div className='flex gap-1 flex-col relative'>
             <label htmlFor='password'>Password</label>
             <input
               onChange={handleChange}
               type="password"
+              ref={passRef}
               placeholder='Enter your password'
               name='password'
               className='p-1 rounded-md placeholder:italic'
               value={loginInfo.password}
             />
+            <span
+                  onClick={showPassword}
+                  className="text-black absolute right-2 top-8 cursor-pointer"
+                >
+                  <img
+                    ref={ref}
+                    className="p-1"
+                    width={32} 
+                    src="icons/eye.png"
+                    alt=""
+                  />
+                </span>
           </div>
           <div className='flex flex-col items-center gap-2'>
             <button type='submit' className='bg-slate-700 text-white flex justify-center items-center font-serif px-2 py-1 rounded-md hover:bg-slate-600 transition-all duration-200 ease-in-out w-[50%]'>

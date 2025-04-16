@@ -76,12 +76,11 @@ const home = () => {
     }, 2000)
   }
   const showPassword = () => {
-    // alert("Show the password")
     passRef.current.type = passRef.current.type === "password" ? "text" : "password";
-    if (ref.current.src.includes("icons/hide.png"))
-      ref.current.src = "icons/eye.png"
+    if (ref.current.src.includes("/icons/hide.png"))
+      ref.current.src = "/icons/eye.png"
     else
-      ref.current.src = "icons/hide.png"
+      ref.current.src = "/icons/hide.png"
   }
   const savePassword = async () => {
     if(!localStorage.getItem("Token")){
